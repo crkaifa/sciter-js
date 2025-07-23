@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+@import url(../../../widgets/file-selector/folder-view.css);         
+folder { size:*; }
+        </style>
+        <script>
+
+document.on("file-activate", function(evt) {
+  console.log("file-activate", evt.data);
+});
+
+        </script>
+    </head>
+    <body>
+
+<folder filter="*.htm;*.html;*.png;*.jpg" path="home://../../../samples.sciter/" />
+
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>grid, auto-fill</title>
+        <style>
+
+section {
+    display:grid;
+    gap: 4px;
+    grid-template-columns: 40px repeat(auto-fit, minmax(100px, 1fr));
+}
+
+section.fill {
+    grid-template-columns: 40px repeat(auto-fill, minmax(100px, 1fr));
+}
+
+section > div {
+    background:gold;
+    padding:4px;
+}
+
+        </style>
+    </head>
+    <body>
+
+<h2>repeat/auto-fit</h2>
+
+<section class="fit">
+   <div>1</div>
+   <div>2</div>
+   <div>3</div>
+   <div>4</div>
+   <div>5</div>
+   <div>6</div>
+   <div>7</div>
+   <div>8</div>
+   <div>9</div>
+</section>
+
+<h2>repeat/auto-fill</h2>
+
+<section class="fill">
+   <div>1</div>
+   <div>2</div>
+   <div>3</div>
+   <div>4</div>
+   <div>5</div>
+   <div>6</div>
+   <div>7</div>
+   <div>8</div>
+   <div>9</div>
+</section>
+
+    </body>
+</html>

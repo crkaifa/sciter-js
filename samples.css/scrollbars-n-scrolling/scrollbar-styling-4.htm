@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+@set my-v-scrollbar
+{
+  .back { 
+    background:gold; padding:4px;
+    padding:50px 10px;
+    background-clip: content-box;
+    border-radius:25px;
+    width: 50dip;
+  }
+
+  .prev { size:50dip; background-image:icon(up); background-size:100%; fill:black;}
+  .next { size:50dip; background-image:icon(down); background-size:100%; fill:black;}
+  
+  .slider{ border-radius:25px; background: red; margin:0 10px;}
+
+}
+
+body {
+    overflow-y:scroll;
+    vertical-scrollbar: my-v-scrollbar;
+}
+
+        </style>
+    </head>
+
+    <script>
+
+function* seq(N) { for(let n = 0; n < N; ++n) yield n; }
+
+function init() {
+  const list = [];
+  for(let n of seq(50))
+    list.push(<p>A {n}</p>);
+  document.body.append(list);
+}
+
+init();
+
+    </script>
+
+    <body></body>
+</html>

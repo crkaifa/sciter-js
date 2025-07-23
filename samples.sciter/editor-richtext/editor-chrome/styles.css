@@ -1,0 +1,47 @@
+
+
+richtext { style-set: richtext-chrome; }
+
+@set richtext-chrome 
+{
+  :root {
+    prototype: RichtextEditor url(behavior.js);
+    display:block;
+    size:*;
+  }
+  htmlarea { // the editor per se
+    size:*;
+    border:none;
+  }
+
+  toolbar { 
+    flow:horizontal; 
+    border-spacing:2px; // space between children
+    background:transparent;
+    padding: 2px;
+    border-bottom:1px solid #ccc;
+  }
+
+  toolbar > button {
+    size:24px;
+    foreground-size:18px; 
+    padding:0;
+    foreground-repeat: no-repeat;
+    foreground-position: 50% 50%;
+    fill:#000;
+    stroke:none;
+  }
+
+  // toolbar > button:checked { }
+
+  toolbar > button.bold { foreground-image: url(icon:bold);}
+  toolbar > button.italic { foreground-image: url(icon:italic); }
+  toolbar > button.sub { foreground-image: url(icon:sub); }
+  toolbar > button.sup { foreground-image: url(icon:sup);}
+  toolbar > button.del { foreground-image: url(icon:strikeout);}
+  toolbar > button.underline { foreground-image: url(icon:underline);}
+  toolbar > button.code { foreground-image: url(icon:code);}
+
+
+}
+

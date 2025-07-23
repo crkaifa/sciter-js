@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>  
+    <style>
+        @import url(../../samples/leaflet/src/leaflet.css);
+        #map { width: *; height: *; }
+    </style>
+</head>
+
+<body>
+
+<h1>DIB32 rendering</h1>
+
+<div id='map'></div>
+
+<script type="module">
+    import * as L from "../../samples/leaflet/src/leaflet-src.esm.js";
+
+    const map = L.map('map', {
+        crs: L.CRS.Simple,
+        minZoom: -3
+    });
+
+    function updateSize() { map.invalidateSize(); }
+    map.getContainer().onSizeChange = updateSize;
+    document.post(updateSize);
+
+    const yx = L.latLng;
+
+    function xy(x, y) {
+        if (Array.isArray(x)) { // When doing xy([x, y]);
+            return yx(x[1], x[0]);
+        }
+        return yx(y, x); // When doing xy(x, y);
+    }
+
+    const sol      = xy(175.2, 145.0);
+    const mizar    = xy(41.6, 130.1);
+    const kruegerZ = xy(13.4, 56.5);
+    const deneb    = xy(218.7, 8.3);
+
+    const mSol = L.marker(sol).addTo(map).bindPopup('Sol');
+    const mMizar = L.marker(mizar).addTo(map).bindPopup('Mizar');
+    const mKruegerZ = L.marker(kruegerZ).addTo(map).bindPopup('Krueger-Z');
+    const mDeneb = L.marker(deneb).addTo(map).bindPopup('Deneb');
+
+    const travel = L.polyline([sol, deneb]).addTo(map);
+    
+    function addGrid ()
+    {
+        var grid = L.gridLayer ({
+            noWrap: true,
+            minZoom: map.options.minZoom,
+            maxZoom: map.options.maxZoom,
+            bounds:  map.options.maxBounds
+        });
+
+        grid.createTile = function (coords) {
+            var tile = document.createElement('div');
+            tile.innerHTML = [coords.x, coords.y, coords.z].join(', ');
+            tile.style.outline = '1px solid red';
+            return tile;
+        }
+
+        map.addLayer(grid);
+    }
+
+    addGrid ();
+    //map.setView (xy (-50, 200), 1);
+    map.setView(xy(120, 70), 1);
+</script>
+</body>
+</html>

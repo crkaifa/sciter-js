@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+@import url(inputex.css);
+
+section {
+    flow:row(label, input currency numeral phone credit-card date time);
+    border-spacing: 1em 4px; 
+}
+
+section > label { white-space:nowrap; }
+
+        </style>
+        <script|module>
+
+        import {CurrencyInput,NumeralInput, CreditCardInput, TimeInput, DateInput, PhoneInput, InputEx} from "./inputex.js";
+
+        document.body.append(<section>
+            <h2>Reactor</h2>
+            <label>currency</label><CurrencyInput prefix="$" value="123456"/>
+            <label>numeral</label><NumeralInput value="123456"/>
+            <label>credit card</label><CreditCardInput />
+            <label>time</label><TimeInput />
+            <label>date</label><DateInput />
+            <label>phone</label><PhoneInput />
+            <label>custom 1</label><InputEx delimiters={['.', '.', '-']} blocks={[3, 3, 3, 2]} uppercase={true} />
+            <label>custom 2</label><InputEx delimiter={" "} blocks={[1, 2, 2, 2, 2]} uppercase={true} prefix="#" />
+         </section>);
+
+        </script>
+    </head>
+    <body>
+     <section>
+        <h2>static inclusion</h2>
+        <label>currency</label><currency prefix="$" value="123456"/>
+        <label>numeral</label><numeral value="123456"/>
+        <label>credit card</label><credit-card />
+        <label>time</label><time />
+        <label>date</label><date />
+        <label>phone</label><phone />
+     </section>
+    </body>
+</html>

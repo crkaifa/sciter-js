@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import * as rt from "@sciter";
+import * as sys from "@sys";
+
+const key = "password!";
+
+let arrayBuffer = sys.fs.$readfile(URL.toPath(__DIR__ + "test.txt"));
+
+document.$("pre#original").innerText = rt.decode(arrayBuffer,"utf-8"); 
+
+let encrypted = rt.encrypt(key, arrayBuffer);
+
+document.$("pre#encrypted").innerText = rt.toBase64(encrypted); 
+
+let decrypted = rt.decrypt(key, encrypted);
+
+document.$("pre#decrypted").innerText = rt.decode(decrypted,"utf-8");  
+
+
+
+        </script>
+    </head>
+    <body>
+
+text: 
+<pre#original />
+encrypted:
+<pre#encrypted />
+decrypted:
+<pre#decrypted />
+
+
+    </body>
+</html>

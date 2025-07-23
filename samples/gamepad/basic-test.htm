@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+class Gamepad extends Element {
+    gamepad = null;
+    constructor({pad}) {
+       super();
+       this.gamepad = pad;
+    }
+
+    render() {
+        return <div>
+
+            <h1>Gamepad {this.gamepad.id}</h1>
+
+            <h3>Buttons</h3>
+            <ol start="0">{
+                this.gamepad.buttons.map( button => <li>button {button.pressed} / {printf("%.2f",button.value)}</li>)
+            }           
+            </ol>
+            <h3>Axes</h3>
+            <ol start="0">{
+               this.gamepad.axes.map( axis => <li>axis {printf("%.2f",axis)}</li> )
+            }</ol>
+        </div>;
+    }
+
+    poll() {
+       this.componentUpdate();
+       requestAnimationFrame(()=>this.poll());
+    }
+
+    componentDidMount() {
+        //this.timer(20ms, ()=>{ this.componentUpdate(); return true; });
+        requestAnimationFrame(()=>this.poll());
+    }
+}
+
+Window.this.on("gamepadconnected",function(evt) {
+   const pad = evt.data;
+   document.body.content(<Gamepad pad={pad} />)
+});
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

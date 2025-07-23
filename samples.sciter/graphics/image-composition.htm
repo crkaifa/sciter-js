@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+row {
+    display:block;
+    flow:horizontal;
+    border-spacing:10px;
+    vertical-align:middle;
+}
+
+picture#c {
+   width:192px; 
+   height:128px;
+   border:1px solid;
+}
+
+        </style>
+        <script|module>
+
+import {devicePixels} from "@sciter";        
+
+const a = document.$("#a").value;
+const b = document.$("#b").value;
+
+//console.log(a,b);
+
+
+function compose(a,b,op) {
+  const t = new Graphics.Image(192,128, gfx => {
+     gfx.drawImage(a,0,0); 
+  });
+  t.compose(b,op,64, 12);
+  document.bindImage("memory:c", t);
+}
+
+document.on("change","select#op", function(e,select) {
+  compose(a,b,select.value);  
+  return true;
+});
+
+        </script>
+    </head>
+    <body>
+       <row>
+          <picture #a src="images/a.png" />
+          <select id="op" novalue="composition?">
+              <option>src-over</option>
+              <option>dst-over</option>
+              <option>src-in</option>
+              <option>dst-in</option>
+              <option>src-out</option>
+              <option>dst-out</option>
+              <option>src-atop</option>
+              <option>dst-atop</option>
+              <option>xor</option>
+              <option>copy</option>
+              <option>multiply</option>
+              <option>screen</option>
+              <option>overlay</option>
+              <option>darken</option>
+              <option>lighten</option>
+              <option>difference</option>
+              <option>exclusion</option>
+
+              <option>hue</option>
+              <option>saturation</option>
+              <option>luminosity</option>
+              <option>color</option>
+
+              <option>soft-light</option>
+              <option>hard-light</option>
+              <option>color-burn</option>
+              <option>color-dodge</option>
+          </select>
+          <picture #b src="images/b.png" />
+          <span>=</span>
+          <picture #c src="memory:c" />
+       </row>
+
+
+    </body>
+</html>

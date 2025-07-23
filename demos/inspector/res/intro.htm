@@ -1,0 +1,64 @@
+﻿<html>
+
+<script|module>
+
+  import {TCP,dns} from "@sys"; 
+  import * as env from "@env"; 
+
+  async function run() {
+    const options = { family: 2 };
+    let list = await dns.getaddrinfo(env.machineName(),options);
+    list = list.map( item => item.addr.ip );
+
+    const ips = document.$("#ips");    
+    ips.innerText = list.join(" and ");
+    const ip = document.$("#ip");    
+    ip.innerText = list[0] ?? "ip";
+  }
+
+  document.on("ready",run);
+
+</script>
+
+
+<body style="behavior:selectable">
+    <p>
+      <img src="sciter:busy.png" style="vertical-align:middle;">
+      Waiting for a connection with Sciter's view on
+      <b #ips>...</b>
+    </p>
+    <p>To enable inspector in your application, call either one of these in the code of your application:</p>
+    <ol>
+      <li><code>SciterSetOption(NULL, SCITER_SET_DEBUG_MODE, TRUE);</code> at the beginning of your main function. This will enable Inspector for any Sciter window/view, or</li>
+      <li><code>SciterCreateWindow(..., ... | SW_ENABLE_DEBUG);</code> - create Sciter window with SW_ENABLE_DEBUG flag.</li></ol>
+    <p>Shortcuts that are active in inspector-enabled view:</p>
+    <ul>
+      <li><code>CTRL+SHIFT+I</code> &nbsp;- connect current view to the Inspector;</li>
+      <li><code>CTRL+SHIFT+{mouse click}</code> on some DOM element - select the element for inpection (styles, attributes, etc.).</li>
+    </ul>
+
+    <p>If you have Inspector running on other machine than your application set this environment variable on your application's machine:</p>
+    <pre style="font-weight:bold">      SCITER_INSPECTOR_IP=<code #ip>ip</code></pre>
+
+    <p>To connect your application to the Inspector either run inspector before launching your application or call this:</p>
+
+    <pre>
+      import * as sys from "@sys";
+      import { launch, home, PLATFORM } from "@env";
+
+      async function launchInspector() {
+        const SUFFIX = { Windows: ".exe", OSX: ".app" };
+        const PREFIX = { Windows: "\\", OSX: "/../../../" };
+
+        let inspectorPath = home((PREFIX[PLATFORM] || "") + "inspector" + (SUFFIX[PLATFORM] || ""));
+
+        try {
+          await sys.fs.stat(inspectorPath);
+          launch(inspectorPath);
+        } catch (e) {
+          Window.modal(&lt;alert>Cannot find {inspectorPath}&lt;/alert>);
+        }
+      }
+    </pre>
+  </body>
+</html>

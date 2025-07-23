@@ -1,0 +1,15 @@
+
+@set edit-plus < std-edit {
+  :root {
+    display:inline-block;
+  }
+  //numeral:root { text-align:right; }
+  //currency:root { text-align:right; }
+}
+
+numeral { style-set: edit-plus; prototype: NumeralInput url(inputex.js); }
+currency { style-set: edit-plus; prototype: CurrencyInput url(inputex.js); }
+date { style-set: edit-plus; prototype: DateInput url(inputex.js); }
+time { style-set: edit-plus; prototype: TimeInput url(inputex.js); }
+credit-card { style-set: edit-plus; prototype: CreditCardInput url(inputex.js); }
+phone { style-set: edit-plus; prototype: PhoneInput url(inputex.js); }

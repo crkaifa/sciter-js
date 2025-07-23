@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+@import url(../samples.sciter/colorizer/colorizer.css);
+
+plaintext { size:*; }
+
+        </style>
+        <script>
+
+const plaintext = document.$("plaintext");
+
+document.on("click","button[type=radio]", async function(evt,button) {
+  var url = button.getAttribute("src");
+  var mime = button.getAttribute("srctype");
+  try {
+    var r = await fetch(url);
+    if(r.ok) {
+      plaintext.setAttribute("type",mime);
+      plaintext.value = r.text();
+    }
+    else
+      plaintext.value = url + " not found";
+  } catch (e) {
+    plaintext.value = url + " not found";
+  }
+});
+
+        </script>
+    </head>
+    <body>
+
+      <h3>System include files</h3>
+
+      <button|radio(resource) src="cres:include/float.h" srctype="text/javascript">&lt;float.h&gt;</button>
+      <button|radio(resource) src="cres:include/jsbridge.h" srctype="text/javascript">&lt;jsbridge.h&gt;</button>
+      <button|radio(resource) src="cres:include/math.h" srctype="text/javascript">&lt;math.h&gt;</button>
+      <button|radio(resource) src="cres:include/stdalign.h" srctype="text/javascript">&lt;stdalign.h&gt;</button>
+      <button|radio(resource) src="cres:include/stdarg.h" srctype="text/javascript">&lt;stdarg.h&gt;</button>
+      <button|radio(resource) src="cres:include/stdatomic.h" srctype="text/javascript">&lt;stdatomic.h&gt;</button>
+      <button|radio(resource) src="cres:include/stdbool.h" srctype="text/javascript">&lt;stdbool.h&gt;</button>
+      <button|radio(resource) src="cres:include/stddef.h" srctype="text/javascript">&lt;stddef.h&gt;</button>
+      <button|radio(resource) src="cres:include/stdint.h" srctype="text/javascript">&lt;stdint.h&gt;</button>
+      <button|radio(resource) src="cres:include/stdlib.h" srctype="text/javascript">&lt;stdlib.h&gt;</button>
+      <button|radio(resource) src="cres:include/stdnoreturn.h" srctype="text/javascript">&lt;stdnoreturn.h&gt;</button>
+      <button|radio(resource) src="cres:include/tccdefs.h" srctype="text/javascript">&lt;tccdefs.h&gt;</button>      
+      <button|radio(resource) src="cres:include/tgmath.h" srctype="text/javascript">&lt;tgmath.h&gt;</button>      
+    
+      
+      <plaintext type="text/javascript" readonly />
+    </body>
+</html>

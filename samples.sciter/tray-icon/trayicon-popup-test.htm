@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+        </style>
+        <script|module>
+
+          import * as TrayIconPopup from "./trayicon-popup.js";
+
+          function reveal() {
+            Window.this.state = Window.WINDOW_SHOWN;
+          }
+          function exit() {
+            Window.this.close();
+          }
+
+          function trayPopupContent() {
+            return <menu.popup>
+              <li onclick={reveal}>Show window</li>
+              <li onclick={exit}>Exit</li>
+            </menu>;
+          }
+
+          document.on("click", "button#set", function(evt,button) 
+          {
+              TrayIconPopup.setup(__DIR__ + "trayicon.svg", "my tray icon", trayPopupContent);
+              button.state.disabled = true;
+          }); 
+
+          document.on("click", "button#hide", evt => {
+            Window.this.state = Window.WINDOW_HIDDEN;
+          });
+          
+
+        </script>
+        
+    </head>
+    <body>
+
+       <p>Demonstrates tray icon and popup menu on RIGHT CLICK on tray icon.</p>
+
+       <div>
+         <button#set>Set Icon</button><br>
+         <button#hide>Hide window</button>
+       </div>
+       
+    </body>
+</html>

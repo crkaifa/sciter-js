@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+img.chart {
+    width:480px;
+    height:64px;
+    border:1px solid;
+    padding:2px;
+}
+
+        </style>
+        <script|module>
+
+import { Lines } from "./micro-chart.js";
+
+
+let data = [
+  { values:[], color:"#F00", min:0, max:64 },
+  { values:[], color:"#00F", min:0, max:64 }
+];
+
+for( let n = 0; n < 32; ++n ) {
+  data[0].values.push(Math.random() * 16 + 12);
+  data[1].values.push(Math.random() * 16 + 32);
+}
+
+let linesChart;
+document.body.append(<Lines data={ data } var={linesChart} />);
+
+document.timer(300ms, function() {
+  data[0].values.shift();
+  data[1].values.shift();
+  data[0].values.push(Math.random() * 16 + 12);
+  data[1].values.push(Math.random() * 16 + 32);
+  linesChart.value = data;
+  return true;
+});
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

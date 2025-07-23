@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import * as A from "./module-a.js";
+import * as B from "./module-b.js";
+
+class ChildFrame extends Element {
+   src = null;
+   constructor(props) {
+     super();
+     this.src = props.src;
+     this.injecta = props.injecta;
+   }
+
+   render() {
+      return <frame sandbox src={this.src} />;
+   }
+
+   ["on document-created"](evt) {
+      //NOTE: this sync event is sent when child document is
+      //loaded into the frame but BEFORE that document started to execute any scripts inside
+
+      const childDoc = this.frame.document;
+      if( evt.relatedTarget !== childDoc) 
+        return true; // the event is not our immediate child
+
+      // inject given objects(modules,functions,constants) into 
+      // global NS of the child document so these things
+      // are accessible globally in the child
+      Object.assign(childDoc.globalThis, this.injecta);
+      Object.assign(childDoc.globalThis.Element.prototype, {popup:null,takeOff:null});
+   }
+
+   onRequest(request) {
+     console.log("request:%s", request.url);
+     // request.fulfill(data[,mime:string,code:integer])
+     // request.reject(data[code:integer)
+     if(request.url == "child:icon")
+       request.redirect("sciter:icon-information.png"); // redirect it to real data source
+     else if(request.url == "child:proto.js")
+       request.redirect(__DIR__ + "child/proto.js"); // redirect it to real data source
+   }
+
+   onRequestResponse(response) {
+      //cache the data if needed
+   }
+
+
+   resolveModuleUrl(moduleName, docUrl, baseUrl) {
+     console.log("requested module:%s from doc:%s base %s", moduleName, docUrl, baseUrl);
+     switch(moduleName) {
+       case "@sys": 
+       case "@sciter": 
+       case "@env": 
+          throw new Error(`module ${moduleName} loading rejected`); // disable those
+       case "@foo": 
+          return baseUrl + "module-foo.js"; // custom alias to path
+       default:
+          return; // do default processing
+     }
+   }
+
+}
+
+const childNS = {
+    modA: A,   // module A is known as "modA" inside the child
+    modB: B,   // module B is known as "modB" inside the child
+    Window: {} // define if you need a placholder
+};
+
+document.body.append(<ChildFrame src="child.htm" injecta={childNS} />)
+
+        </script>
+    </head>
+    <body>
+
+    Child doc:
+
+    </body>
+</html>

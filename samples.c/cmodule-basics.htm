@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import * as cmod from "./cmodule-basics.c";
+
+const arr_int16 = new Int16Array([1,2,3]);
+
+let r = cmod.sumInt16(arr_int16, arr_int16.length);
+console.assert(r == 6, "sumInt16");
+
+const {answers,question} = cmod.returnObject();
+console.assert(answers[3] == 42, "returnObject");
+document.body.append(<text>{question}</text>);
+
+r = cmod.voidFunc(2);
+
+r = cmod.consumeObject({question:"Ultimate Question of Life, the Universe, and Everything", answer:42});
+console.assert(r == 2, "consumed");
+
+document.body.append(<h3>Passed</h3>);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

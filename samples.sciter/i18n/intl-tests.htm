@@ -1,0 +1,42 @@
+<html> <!--lang="ru-ru" -->
+    <head>
+        <title>Test</title>
+        <style>
+
+body {
+    font-size:12pt;
+}
+
+        </style>
+        <script>
+
+const decfmt = new Intl.NumberFormat({style:"decimal"});
+const monfmt = new Intl.NumberFormat({style:"currency"});
+const datfmt = new Intl.DateTimeFormat({dateStyle:"medium",timeStyle:"medium"});
+
+const date = new Date(2024,11,31);
+
+document.body.append(<p>decimal 123456789.00 : <code>{ decfmt.format(123456789.00) }</code></p>);
+document.body.append(<p>currency 123456789.00 : <code>{ monfmt.format(123456789.00) }</code></p>);
+
+document.body.append(<p>decimal format  : <code>{ decfmt.formatPattern() }</code></p>);
+document.body.append(<p>currency format : <code>{ monfmt.formatPattern() }</code></p>);
+
+document.body.append(<p>currency symbol : <code>{ monfmt.currencySymbol() }</code></p>);
+document.body.append(<p>currency international symbol : <code>{ monfmt.currencyInternationalSymbol() }</code></p>);
+
+document.body.append(<p>date {date.toString()} : <code>{ datfmt.format(date) }</code></p>);
+document.body.append(<p>dateFormatPattern : <code>{ datfmt.dateFormatPattern("short") }</code></p>);
+document.body.append(<p>timeFormatPattern : <code>{ datfmt.timeFormatPattern("short") }</code></p>);
+
+document.body.append(<p>dateOrder : <code>{ datfmt.dateOrder() }</code></p>);
+document.body.append(<p>timeOrder : <code>{ datfmt.timeOrder() }</code></p>);
+document.body.append(<p>dateSeparator : <code>{ datfmt.dateSeparator() }</code></p>);
+document.body.append(<p>timeSeparator : <code>{ datfmt.timeSeparator() }</code></p>);
+
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

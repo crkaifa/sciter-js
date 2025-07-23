@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+
+
+        </style>
+        <script|module>
+
+          import {GamepadView} from "./standard-gamepad.js";
+
+          Window.this.on("gamepadconnected",function(evt) {
+               const pad = evt.data;
+               document.body.content(<GamepadView pad={pad} />)
+          });
+
+        </script>
+    </head>
+    <body>
+
+
+
+    </body>
+</html>

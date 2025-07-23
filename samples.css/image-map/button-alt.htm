@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title></title>
+    <style>
+        @image-map pushbutton-blue
+        {
+            src: url(button-states.png);
+            cells:1 7; /* 1 columns, 7 rows */
+        }
+        button.push
+        {
+          appearance:none;
+          padding:0.5em 1em;
+          flow:text;
+          background-position: 2px 10px 2px 10px; // top right bottom left
+          background-repeat: expand stretch-left stretch-middle stretch-right;
+          min-height: min-content;
+        }
+        button.push        { background-image: image-map(pushbutton-blue, 1, 1); transition: none; }
+        button.push:hover  { background-image: image-map(pushbutton-blue, 1, 2); transition: blend-atop linear 200ms; }
+        button.push:active { background-image: image-map(pushbutton-blue, 1, 3); transition: none;}
+        button.push:focus  { background-image: image-map(pushbutton-blue, 1, 4); }
+        button.push:focus:active { background-image: image-map(pushbutton-blue, 1, 5); }
+    </style>
+</head>
+<body>
+    <p>Demo of custom button shape defined by single bitmap and <code>@image-map</code>.</p>
+    <p>Note: <code>@image-map</code> in this sample use col/row indexes rather than symbolic names.</p>
+    <button .push>The button</button>
+    <button .push>Quite tall<br>button</button>
+</body>
+</html>

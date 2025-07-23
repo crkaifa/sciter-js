@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+progress {
+    appearance:none;
+    background: path( M (1*Y) 0 L (1*X) 0 L (1*X-1*Y) 1* L 0 (1*Y) Z );
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    fill:red;
+    stroke:black;
+    stroke-width:1px;
+}
+
+progress::marker {
+    background: path( M (1*Y) 0 L (1*X) 0 L (1*X-1*Y) 1* L 0 (1*Y) Z );
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    fill:blue;
+    stroke:black;
+    stroke-width:1px;
+}
+
+        </style>
+        <script></script>
+    </head>
+    <body>
+
+<progress value="50" max="100" />
+
+    </body>
+</html>

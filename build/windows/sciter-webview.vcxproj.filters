@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sciter-webview">
+      <UniqueIdentifier>{B51F1798-A1ED-0A9E-8A81-7BC476EEE602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sciter-webview\webview">
+      <UniqueIdentifier>{7D41F347-693B-1C9A-52A8-B2AA3E418206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sciter-webview\webview\win">
+      <UniqueIdentifier>{FA859DAA-E695-497B-4F4F-AE993B7E3814}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\aux-asset.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\aux-cvt.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\aux-platform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\aux-slice.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-om-def.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-om.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-version.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-api.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-behavior.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-debug.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-def.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-dom.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-dom.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-graphics.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-graphics.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-host-callback.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-key-codes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-lite.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-msg.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-primitives.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-request.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-request.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-threads.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-value.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-video-api.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-vulkan.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-window.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\sciter-webview\behavior_webview.cpp">
+      <Filter>sciter-webview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sciter-webview\webview\sciter_edgewebview.cpp">
+      <Filter>sciter-webview\webview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sciter-webview\webview\sciter_iewebview.cpp">
+      <Filter>sciter-webview\webview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sciter-webview\webview\sciter_winwebview.cpp">
+      <Filter>sciter-webview\webview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sciter-webview\webview\win\dllmain.cpp">
+      <Filter>sciter-webview\webview\win</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\sciter-webview\webview\win\exports.def">
+      <Filter>sciter-webview\webview\win</Filter>
+    </None>
+  </ItemGroup>
+</Project>

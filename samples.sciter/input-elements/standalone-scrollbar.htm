@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script>
+
+document.on("change", "widget", function(evt, widget) {
+  console.log("scroll change", widget.value);
+});
+
+        </script>
+    </head>
+    <body>
+
+<h2>Standalone scrollbar control</h2>
+
+<widget|vscrollbar />
+<widget|hscrollbar />
+
+    </body>
+</html>

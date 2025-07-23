@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+option {
+  border-bottom:1px solid;
+}
+
+#vselect {
+    border:1px solid red;
+}
+
+        </style>
+        <script type="module">
+
+import {VirtualSelect} from "virtual-select.js";
+
+function generate() {
+    const items = [];
+    for (let i = 0; i < 5; ++i)
+        items.push({key: i, text: `item # ${i}`});
+    return items;
+}
+
+const items = generate();
+
+function renderOption(item, isCurrent, isSelected) {
+    return <option key={item.key}
+        state-current={isCurrent}
+        state-checked={isSelected}>{item.text}</option>;
+}
+
+document.on("click", "button#update", function(evt) {
+    for (const item of items)
+        item.text += "*";
+    console.log("before update");
+    document.$("#vselect").componentUpdate();
+});
+
+document.on("click", "button#append", function(evt) {
+    const n = items.length;
+    for (let i = n; i < n + 50; ++i)
+        items.push({key: i, text: `item # ${i}`});
+    document.$("#vselect").componentUpdate();
+});
+
+document.on("click", "button#prune", function(evt) {
+    items.splice(-25, 25);
+    console.log("before prune");
+    document.$("#vselect").componentUpdate();
+});
+
+document.body.patch(
+    <body>
+        <VirtualSelect id="vselect"
+            items={items}
+            renderItem={renderOption} />
+
+    <button#update>Update</button>
+    <button#append>Append</button>
+    <button#prune>Prune</button>
+
+    </body>);
+
+        </script>
+    </head>
+    <body />
+</html>

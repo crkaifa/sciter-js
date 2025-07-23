@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import * as cmod from "./mod.c";
+
+// from "mod.c"
+let q = cmod.question();
+console.assert(q == "Ultimate Question of Life, the Universe, and Everything", "consumed");
+
+// from "sub.c"
+let a = cmod.answer();
+console.assert(a == 42, "consumed");
+
+
+document.body.append(<h3>Passed</h3>);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

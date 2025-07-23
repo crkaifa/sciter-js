@@ -1,0 +1,392 @@
+<html window-corners="not-round" 
+      window-resizable="6px">
+    <head>
+        <title>Test</title>
+
+        <menu role="window-menu">
+           <li>File
+              <menu>
+                <li.hello accesskey="^KeyH">Say Hello</li>
+                <hr/>
+                <li.quit accesskey="^KeyQ">Quit</li>
+              </menu>
+           </li>  
+           <li>Tests
+              <menu>
+                <li.test target="test0" accesskey="^Digit0">Calling native functions from script</li>
+                <li.test target="test1" accesskey="^Digit1">Use of native objects</li>
+                <li.test target="test2" accesskey="^Digit2">Use of native functors</li>
+                <li.test target="test3" accesskey="^Digit3">Long tasks in worker threads</li>
+                <li.test target="test4" accesskey="^Digit4">Calling script function from native</li>
+                
+              </menu>
+           </li>  
+        </menu>
+
+        <style>
+
+html {
+  -test-custom-prop:42;
+  var(test-custom-var):42;
+}
+
+form {
+  border:1px solid;
+  flow: row(label, input output);
+  width: max-content;
+  padding:1em;
+  border-spacing: 0.5em;
+}
+
+form > * { display: block; }
+form > label { width: max-content; text-align: right; }
+form > label::after { content: ":" }
+
+main {flow:horizontal-wrap; border-spacing:2em; }
+
+        </style>
+        <script>
+
+let nativeApi = Window.this.assetInterface.nativeFunctionsB();
+console.log( nativeApi.beginDownload() );
+//console.assert( nativeApi.beginDownload(), "problem with C++ lambdas" );
+
+document.on("before-unload", () => { nativeApi = null })
+
+// menu handling:
+document.on("click","menu>li.hello", () => { Window.this.modal(<info>Hello world!</info>); });
+document.on("click","menu>li.quit", () => { Window.this.close(); });
+document.on("click","menu>li[target]", (e,li) => { 
+  const targetId = li.attributes["target"];
+  const target = document.getElementById(targetId);
+  console.assert(target,"no element with id %s",targetId);
+  target.scrollIntoView({behavior:"smooth"});
+});
+// -----------
+
+
+
+document.$("output#init-script").value = initializedByInitScript;
+document.$("output#init-code").value = initializedByCode;
+
+// Window.this - the window we are in
+
+document.on("input", "form#asset1", function(evt,form) {
+  var {a,b} = form.value;
+  var r = Window.this.assetInterface.integerSum(a,b); // calling native function
+  form.value = { result: r };
+});
+
+document.on("input", "form#asset2", function(evt,form) {
+  var {a,b} = form.value;
+  var r = Window.this.assetInterface.stringSum(a,b); // calling native function
+  form.value = { result: r };
+});
+
+document.on("input", "form#asset3", function(evt,form) {
+  var {list,multiplier} = form.value;
+  function toInt(s) { return parseInt(s); }
+  var ints = list.split(",").map(toInt);
+  var r = Window.this.assetInterface.vectorIntegerMul(ints, toInt(multiplier));
+  form.value = { result: r.join(",") };
+});
+
+document.on("input", "form#asset4", function(evt,form) {
+  var {length1,length2} = form.value;
+  var bytes1 = new ArrayBuffer(length1);
+  var bytes2 = new ArrayBuffer(length2);
+  var r = Window.this.assetInterface.bytesSum(bytes1,bytes2);
+  form.value = { result: r.toString() + ", byteLength=" + r.byteLength };
+});
+
+
+// creation of native object
+var nativeObj = Window.this.assetInterface.makeNativeObject();
+
+// Use of native object
+  document.on("click", "button#inc-native", function() {
+    const output = document.$("#objectOutput");
+    var r = nativeObj.inc(); // method
+    var c = nativeObj.vcounter; // virtual property
+
+    try {
+      nativeObj.vcounter = 43;        
+    } catch (e) {
+      console.log(e.toString(), "( this error is expected)");
+    }
+
+    output.innerText = `${nativeObj} inc() : ${ r } vcounter: ${ c }`;
+  });
+
+  document.on("click", "button#dec-native", function() {
+    const output = document.$("#objectOutput");
+    var r = nativeObj.dec();
+    var c = nativeObj.counter; // direct property
+    output.innerText = `${nativeObj} dec() : ${ r } counter: ${ c }`;
+  });
+
+// native functors
+  document.on("click", "button#testative-add", function() {
+    const output = document.$("#functorsOutput");
+
+    const api = Window.this.assetInterface.nativeFunctionsA();
+    const r = api.add(2,2); // invocation of native functors
+    
+    output.innerText = `api.add(2,2) : ${ r }`;
+  });
+
+  document.on("click", "button#testative-sub", function() {
+    const output = document.$("#functorsOutput");
+
+    const api = Window.this.assetInterface.nativeFunctionsA();
+    const r = api.sub(2,2); // invocation of native functors
+    
+    output.innerText = `api.sub(2,2) : ${ r }`;
+  });
+
+
+
+document.on("click", "button#task-start", function(evt, button) {
+  const progress = document.$("#task-progress");
+  button.state.disabled = true;
+
+  function onDone(n) {
+    progress.value = n;
+    button.state.disabled = false;
+  }
+
+  function onProgress(n) {
+    progress.value = n;
+  }
+  
+  NativeBackend.startNativeThread(onDone,onProgress);
+});
+
+document.on("click", "button#task-start-object", function(evt, button) {
+  const progress = document.$("#task-progress");
+  button.state.disabled = true;
+
+  const obj = {
+    done: function (n) { progress.value = n; button.state.disabled = false; },
+    progress: function(n) { progress.value = n; }
+  };
+  
+  NativeBackend.startNativeThreadWithObject(obj);
+});
+
+document.on("click", "button#native-async-function", async function(evt, button) {
+  button.state.disabled = true;
+  let data = await NativeBackend.nativeAsyncFunction(1000);
+  button.state.disabled = false;
+  Window.this.modal(<info>nativeAsyncFunction answered:{data}</info>);
+});
+
+
+
+// xcall test
+document.on("input", "form#xcall", function(evt,form) {
+  var a = form.value.a;
+  var r = Window.this.xcall("xcallTest",a); // native function call
+  form.value = { result: r };
+});
+
+
+// API for native side:
+
+
+// to be called from native side:
+function scriptFunc(p) {
+  const output = document.$("#scriptFuncOutput");
+  output.value = `received ${p} from native side`;
+  return p;
+}
+
+// using class as a namespace with static functions (ES6 feature).
+class scriptNS 
+{
+  // this function will be called by native side
+  static testFunc(obj) {
+    const output = document.$("pre#jsonOutput");
+    output.innerText = JSON.stringify(obj);
+  }
+
+  static testErroneousFunc() {
+    throw new Error("Test Error: what a surprise!");
+  }
+
+}
+
+// subscribe to application (global) events 
+
+document.onGlobalEvent("application-event",function(evt) {
+  document.$("pre#appEventsOutput").innerText = JSON.stringify(evt.data);
+});
+
+document.body.testMethod = function(n) {
+  return n + 1;
+}
+
+function testFunction(n) {
+  return n + 2; 
+}
+
+function testError() {
+  const output = document.$("output#error");
+  try {
+    let err = Window.this.assetInterface.errorGeneration();
+    output.value = "Returs:" + err.toString();
+  } catch(e) {
+    output.value = "Caught:" + e.toString();
+  }
+}
+
+testError();
+
+document.body.append(<p>{nativeObject.toString()}</p>);
+
+for(const item of nativeObject) {
+  document.body.append(<text>iteration {item}</text>);
+}
+
+
+        </script>
+    </head>
+    <body>
+
+<h1>Sciter.JS integration and API demo.</h1>
+
+<h2>Initialization</h2>
+
+<h3>By init script (<code>window::set_init_script(...)</code>)</h3>  
+  
+  <p>initializedByInitScript : <output#init-script /></p>
+
+<h3>By native code (<code>window::set_variable(...)</code>)</h3>  
+  
+  <p>initializedByCode : <output#init-code /></p>
+
+<h2 #test0>Calling native functions from script</h2>
+
+<h3>Asset interface demo</h3>
+
+<p>These will test native functions defined in <code>SOM_PASSPORT_BEGIN_EX / SOM_PASSPORT_END</code> block</p>
+
+<main>
+
+  <section>
+    <p>Calls <code>Window.this.assetInterface.integerSum(a,b)</code> on input</p>
+    <form #asset1>
+       <label>a</label><input|integer(a) min=0 max=100 step=1 />
+       <label>b</label><input|integer(b) min=0 max=100 step=1 />
+       <label>result</label><output(result) />
+    </form>
+  </section>
+
+  <section>
+    <p>Calls <code>Window.this.assetInterface.stringSum(a,b)</code> on input</p>
+    <form #asset2>
+       <label>a</label><input|text(a) />
+       <label>b</label><input|text(b) />
+       <label>result</label><output(result) />
+    </form>
+  </section>
+
+  <section>
+    <p>Calls <code>Window.this.assetInterface.vectorIntegerMul(list,mul)</code> on input</p>
+    <form #asset3>
+       <label>comma separated ints</label><input|text(list) value="1,2,3" />
+       <label>multiplier</label><input|integer(multiplier) min=0 max=100 step=1 />
+       <label>result</label><output(result) />
+    </form>
+  </section>
+
+  <section>
+    <p>Calls <code>Window.this.assetInterface.bytesSum(ArrayBuffer,ArrayBuffer)</code> on input</p>
+    <form #asset4>
+       <label>ArrayBuffer #1 length</label><input|integer(length1) value="2" step="1" />
+       <label>ArrayBuffer #2 length</label><input|integer(length2) value="2" step="1" />
+       <label>result</label><output(result) />
+    </form>
+  </section>
+
+
+  <section>
+    <p>Calls <code>Window.this.xcall("mappedFunctionName", ...)</code></p>
+    <form #xcall>
+       <label>a</label><input|integer(a) min=0 max=100 step=1 />
+       <label>result</label><output(result) />
+    </form>
+  </section>
+
+  <section>
+    <p>Calls <code>Window.this.errorGeneration()</code></p>
+    <output #error />
+  </section>
+
+
+</main>
+
+<h2 #test1>Use of native objects</h2>
+
+<section>
+  <p>Creates native object and uses its methods:</p>
+  <button #inc-native>Increment</button>
+  <button #dec-native>Decrement</button>
+  <pre #objectOutput />
+</section>
+
+<h2 #test2>Use of native functors</h2>
+
+<section>
+  <p>requests native API (as map of functions) and uses them:</p>
+  <button #testative-add>2 + 2</button>
+  <button #testative-sub>2 - 2</button>
+  <pre #functorsOutput />
+</section>
+
+
+<h2 #test3>Running long tasks in worker threads</h2>
+
+<section>
+  <progress #task-progress max=100 value=0 />
+  <button #task-start>Start task</button>
+  <button #task-start-object>Start task with object</button>
+  <button #native-async-function>Perform nativeAsyncFunction</button> 
+</section>
+
+
+<h2 #test4>Calling script function from native side</h2>
+
+<p>These will use native <code>handle_event()</code> handler and call functions on script side from native side</p>
+
+<main>
+  <section>
+    <button #test-script-func-1>Call function scriptFunc(p)</button>
+    <output #scriptFuncOutput />
+  </section>
+
+  <section>
+    <button #test-script-func-2>Call function scriptNS.testFunc(obj)</button>
+    <pre #jsonOutput></pre>
+  </section>
+
+  <section>
+    <button #test-script-func-3>Call function scriptNS.testErroneousFunc()</button>
+    Note that should throw sciter::script_error in native code
+  </section>
+
+  <section>
+    <input|text #test-behavior-method-call value="some text" /> this will be highlighted from native code.
+  </section>
+
+
+</main>
+
+<section>
+  <p>This receives application events - broadcasted to all windows:</p>
+  <pre #appEventsOutput></pre>
+</section>
+
+
+    </body>
+</html>

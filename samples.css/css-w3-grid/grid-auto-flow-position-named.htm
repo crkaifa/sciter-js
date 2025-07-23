@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+.container-row {
+  display: grid;
+  grid-template-columns: 60px 60px [cstart] 60px [cend] 60px 60px;
+  grid-template-rows: [rstart] 30px 30px [rend];
+  grid-auto-flow: row;
+  gap: 3px;
+}
+
+.item-a {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+.item-e {
+  grid-column: cstart / cend;
+  grid-row: rstart / rend;
+}
+
+section > div {
+    border:1px solid;
+    border-radius: 4px;
+    padding:2;
+}
+
+section > div:nth-child(1) { background:#EB9694; }
+section > div:nth-child(2) { background:#FAD0C3; }
+section > div:nth-child(3) { background:#FEF3BD; }
+section > div:nth-child(4) { background:#C1E1C5; }
+section > div:nth-child(5) { background:#BEDADC; }
+section > div:nth-child(6) { background:#C4DEF6; }
+section > div:nth-child(7) { background:#BED3F3; }
+section > div:nth-child(8) { background:#D4C4FB; }
+section > div:nth-child(9) { background:#F2F2F2; }
+
+        </style>
+    </head>
+    <body>
+
+<h2>grid-auto-flow: row</h2>
+
+<section class="container-row">
+  <div class="item-a">item-a</div>
+  <div class="item-b">item-b</div>
+  <div class="item-c">item-c</div>
+  <div class="item-d">item-d</div>
+  <div class="item-e" #test>item-e</div>
+  <div class="item-f">item-f</div>
+</section>
+
+    </body>
+</html>

@@ -1,0 +1,68 @@
+<html>
+<head><style>
+
+.tabs 
+{
+  font:system;
+  behavior: tabs; // include/behaviors/behavior-tabs.h
+  size:*;
+  //overflow:hidden;
+  display:block;
+  flow:vertical;
+}
+
+.tabs > .strip /* the tab strip */
+{
+  display: block;
+  flow: horizontal;
+  padding: 2px;
+  margin-bottom:2px;
+}
+
+// labels
+.tabs > .strip > div[panel] /* all tab labels, passive by default */
+{
+  display:block;
+  padding: 3px 8px;
+  height:*;
+  max-width: auto; /* not wider than max-intrinsic  */
+  border-bottom:2px solid transparent;
+}
+.tabs > .strip > div[panel]:hover /* passive tab */
+{
+  color: highlight;
+}
+.tabs > .strip > div[panel]:current /*active tab*/
+{
+  border-color:highlight;
+}
+
+.tabs > :not(.strip) { visibility:none; }
+.tabs > :not(.strip):expanded { visibility:visible; }
+
+</style>
+
+
+</head>
+
+<body>
+   <div class="tabs" #test>
+      <div class="strip" role="page-tab-list"> <!-- our tab strip, can be placed on any side of tab container. -->
+         <div panel="panel-id1" selected role="page-tab">tab1 caption</div>
+         <div panel="panel-id2" role="page-tab">tab2 caption</div>
+         <div panel="panel-id3" role="page-tab">tab3 caption</div>         
+      </div>
+      <div id="panel-id1"> first panel content 
+      <select name="country">
+        <OPTION VALUE=1 >Afghanistan</OPTION>
+        <OPTION VALUE=2 >Albania</OPTION>
+        <OPTION VALUE=3 >Algeria</OPTION>
+        <OPTION VALUE=4 >American Samoa</OPTION>
+      </select> 
+      </div>
+      <div id="panel-id2"> second panel content <button>Test1</button> </div>
+      <div id="panel-id3"> third panel content </div>      
+   </div>
+   
+</body>   
+</html>   

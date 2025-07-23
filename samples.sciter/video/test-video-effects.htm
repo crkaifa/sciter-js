@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+    
+      html { background: transparent; }
+
+      video-stack {
+        prototype: VideoStack;
+        display:block;
+        flow:stack;
+        size:*;
+      }
+      
+      video-stack > video { size: *; foreground-size:contain;  }
+
+      video-stack > picture   { 
+        size: *; 
+        //foreground: no-repeat 50% 50%; 
+        foreground-size:cover;
+        filter: blur(30px); 
+      }
+    
+    </style>
+    <script>
+
+      class VideoStack extends Element  
+      {
+        ["on video-frame-change at video"](e,videoEl) {
+          //  binding video frame image with the <picture>
+          const picture = this.$("picture");
+          picture.value = videoEl.style.imageOf("foreground-image");
+        }
+
+      }
+
+    </script>
+  </head>
+<body>
+<p>Dynamic blurred background.</p>
+
+  <video-stack>
+     <picture #test />
+     <video src="movies/carribean.wmv" />
+  </video-stack>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+body {
+    prototype: ChildBody url(child:proto.js);
+    background: url(child:icon) no-repeat 100% 100%;
+}
+
+body.ready {
+    background-color:gold;
+}
+
+
+
+
+        </style>
+        <script|module>
+
+import {foo} from "@foo";
+//import {fs} from "@sys";
+import * as Path from "@path";
+
+document.body.append(<p>calling modA.foo(): <i>{ modA.foo() }</i> </p>);
+document.body.append(<p>calling modB.foo(): <i>{ modB.foo() }</i> </p>);
+document.body.append(<p>calling module-foo.js/foo(): <i>{ foo() }</i> </p>);
+document.body.append(<p>getting Window: <i>{ typeof Window }</i> </p>);
+document.body.append(<p>getting Window.this: <i>{ typeof Window?.this }</i> </p>);
+document.body.append(<p>getting document.parentElement: <i>{ document.parentElement ?? "null" }</i> </p>);
+document.body.append(<p>getting Path NS: <i>{ typeof Path }</i> </p>);
+document.body.append(<p>body.popup method is null: <i>{ document.body.popup === null }</i> </p>);
+
+        </script>
+    </head>
+    <body>
+<h2>I am a child doc in sandbox'ed frame</h2>
+    </body>
+</html>

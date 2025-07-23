@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import * as cmod from "./cmodule-dlopen.c";
+
+document.on("click","button#invoke", function() {
+  let r = cmod.messageBox("Hello DLL function");
+  console.log(r);
+});
+
+
+        </script>
+    </head>
+    <body>
+
+      <button#invoke>Invoke DLL function</button> 
+
+    </body>
+</html>

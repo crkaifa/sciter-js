@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+        body {
+            flow:stack;
+            margin:0;
+            overflow:hidden;
+        }
+
+        body.locked {
+            background:gold;
+        }
+
+        disk {
+           display:block;
+           size:10px;
+           border-radius:5px;  
+           background: red;
+           transform: translate(-50%,-50%);
+           margin-left: var(x,0px);
+           margin-top: var(y,0px);
+        }
+
+        </style>
+        <script>
+
+        const header = document.$("header");
+        const disk = document.$("disk");
+
+        document.body.requestPointerLock({
+            unadjustedMovement: true
+        });
+        document.body.classList.add("locked");        
+
+        document.body.on("mousemove", function(evt) {
+          disk.style.variables({
+            x: Length.px(evt.x),
+            y: Length.px(evt.y)
+          });
+        });
+
+        let seconds = 20;
+        document.timer(1s, function() {
+          if(--seconds == 0) {
+            document.body.classList.remove("locked");
+            document.exitPointerLock();
+            header.content(<text>done</text>);
+            return false;
+          }
+          else {
+            header.content(<text>{seconds} until exitPointerLock()</text>);
+            return true;
+          }
+        });
+
+        </script>
+    </head>
+    <body>
+       <header></header>
+       <disk />
+    </body>
+</html>

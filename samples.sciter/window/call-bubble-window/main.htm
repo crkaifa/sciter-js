@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script>
+
+document.on("click","button#tool", function(e,button) {
+  const tool = new Window({ 
+      type  : Window.FRAME_WINDOW,
+      url   : __DIR__ + "popup.htm", 
+      state : Window.WINDOW_SHOWN,
+      alignment: 8, // top-center
+      x: 200, // location of top-center point
+      y: 0,   // location of top-center point
+      width: 400,
+      height: 400,
+  });
+  button.state.disabled = true;
+  tool.on("close", function() {
+    button.state.disabled = false; // enable button
+  });
+
+});
+
+
+        </script>
+    </head>
+    <body>
+
+<button #tool>Open Popup</button>
+
+    </body>
+</html>

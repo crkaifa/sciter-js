@@ -1,0 +1,91 @@
+﻿@set folder-view
+{
+  :root {
+    prototype: FolderView url(folder-view.js);
+    display:block;
+    size:*;
+    flow:vertical; 
+    background: color(widget-back);
+    border: 1px solid color(widget-border);
+  }  
+
+  select.path {
+    display:block;
+    width:*;
+    flow:horizontal;
+    overflow:none;
+    height:1.6em;
+    border:none;
+    background:none;
+  }
+
+  select.path > option {
+    height:1.6em;
+    line-height:height(100%);
+    max-width:max-content;
+    padding:0;
+  }
+
+  select.path > option:hover {
+    background-color:var(highlight-hover);
+  }
+
+  select:not(:focus) > option {background:transparent;}
+
+  select.path > option:nth-child(1n+2)::after {
+    content:" › ";
+  }
+
+  select.path > option.up {
+    width:24px; 
+    height:1.6em;
+    max-width:24px; 
+    min-width:24px; 
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-image: icon(arrow-up);
+    //background-size: 0.7em; 
+    fill: color(button-text);
+    stroke:none;
+  }
+
+  select.content {
+    display:block;
+    size:*;
+    flow:vertical-wrap;
+    overflow-x:scroll-indicator;
+    overflow-y:none;
+    border-spacing:3px 1px;
+    border:none;
+    background: color(widget-back);
+    border-top: 1px solid color(widget-border);
+  }  
+
+  select.content > option 
+  {
+    foreground-repeat: no-repeat;
+    foreground-position: 2px 50%;
+    padding-left: 24px;
+    padding-right: 4px;
+    width:max-content;
+    max-width:100%;
+    overflow-x:hidden;
+    text-overflow:ellipsis;
+    flow:text;
+  }
+
+  select.content > option.file { behavior:shell-icon; /*shows real icons*/ } 
+
+  select.content > option.folder { 
+    foreground-image:url(path:M1728 608v704q0 92-66 158t-158 66h-1216q-92 0-158-66t-66-158v-960q0-92 66-158t158-66h320q92 0 158 66t66 158v32h672q92 0 158 66t66 158z); 
+    fill:#FFDEAD;
+    stroke:#000;
+    stroke-width:1ppx;
+    foreground-size:16px; 
+  } 
+}
+
+/* this allows it to be used in HTML as <folder /> */
+folder {
+  style-set: folder-view;
+}

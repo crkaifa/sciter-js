@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+    
+      picture { 
+        size:*;
+        fill:gold;
+        stroke:#444;
+        stroke-width:1px;
+        //stroke:none;
+      }
+
+      div.triangle {
+        size:*;
+        fill:gold;
+        stroke:#444;
+        stroke-width:1px;
+        background: no-repeat path(M 0 0 L 1* 0 L 0.5* 1* Z);
+        background-size:100% 100%;
+        text-align: center;
+      }
+      
+    </style>
+    <script></script>
+  </head>
+<body>
+
+    <h2>Demonstration of expandable inline vector images</h2>
+
+    <!--flexible image , uses 0.5* or 0.5*X- 50% of width, 0.5*Y - 50% of height, etc. -->
+
+    <div.triangle>Vector background defined by CSS</div>
+ 
+    <picture src="path:M 0 0 H -0.5*Y c 0.66*Y 0 0.66*Y 1* 0 1* V 1* H 0 z" />
+
+    <picture style="width:*; height:2em" src="path:M 5 0 H 1* V 1* H 5 Z 
+     M 0 0.2* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0
+     M 0 0.4* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0
+     M 0 0.6* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0
+     M 0 0.8* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0" />
+
+</body>
+</html>

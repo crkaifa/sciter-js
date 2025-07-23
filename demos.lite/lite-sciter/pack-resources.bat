@@ -1,0 +1,1 @@
+..\..\bin\windows\packfolder.exe facade facade-resources.cpp -v "resources"

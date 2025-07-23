@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+    
+      div#test 
+      { 
+        behavior:button;
+        size:100px; 
+        border:1px solid; 
+        margin-left:*; // aligned to the right
+      }
+      
+      #test > popup { 
+        background:rgb(248,248,248); 
+        size:200px 100px; 
+        //border: 1px solid; 
+        margin:0 6px;
+
+        //attr(window-frame): "solid";
+
+        attr(window-frame): "transparent";
+        border-radius:6px 6px 0 0;
+        box-shadow:0 0 10px rgba(64,64,64,0.5);
+      }
+      #test > popup > ol { overflow-y:auto; height:*; background:white; margin:0; }
+      
+      #test > popup > ol > li { 
+        overflow-x:hidden;
+        text-overflow:ellipsis;
+        width:*;
+        white-space:nowrap; }
+
+
+    
+    </style>
+    <script>
+    
+      document.on("click", "div#test", function(evt, div)
+      {
+        const popupElement = div.$("popup");
+        div.popup(popupElement, {
+          anchorAt: 9, // top/right 
+          popupAt:7,    // top/left 
+        });
+      }); 
+    
+    
+    </script>
+  </head>
+<body>
+
+  <div #test>
+    Click to see popup
+    <popup>
+      Scrollable test:
+      <ol> 
+        <li>111111111111111111111111111111111111</li>
+        <li>2222222222222222222222222222222222222222</li>
+        <li>3333</li>
+        <li>4444</li>
+        <li>5555</li>
+        <li>6666</li>
+        <li>7777</li>
+        <li>8888</li>
+        <li>9999</li>
+      </ol>
+    </popup>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script>
+
+document.on("click","button#tool", function(e,button) {
+  const tool = new Window({ 
+      type  : Window.TOOL_WINDOW,
+      url   : __DIR__ + "tool.htm", 
+      state : Window.WINDOW_SHOWN,
+  });
+  button.state.disabled = true;
+  tool.on("close", function() {
+    button.state.disabled = false; // enable button
+  });
+
+});
+
+        </script>
+    </head>
+    <body>
+
+<button #tool>Open Tool</button>
+
+
+    </body>
+</html>

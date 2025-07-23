@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+section {
+    display:flex;
+    height:200px;
+    padding:3px;
+    border:1px solid;
+    border-radius: 6px;  
+    gap:3px;
+    margin:10px;
+}
+
+section > div {
+    border:1px solid;
+    border-radius: 3px;
+    background: gold;
+    padding: 3px;
+
+}
+
+        </style>
+    </head>
+    <body>
+
+<h2>flex-direction:row</h2>
+
+<section>
+  <div>1</div>
+  <div style="flex:1">2: flex:1</div>
+  <div style="flex:2; align-self:end;">3: flex:2; align-self:end;</div>
+</section>
+
+<h2>flex-direction:column</h2>
+
+<section style="flex-direction:column">
+  <div>1</div>
+  <div style="flex:1">2: flex:1</div>
+  <div style="flex:2; align-self:end;">3: flex:2; align-self:end;</div>
+</section>
+
+
+    </body>
+</html>

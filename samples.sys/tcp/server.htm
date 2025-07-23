@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title>Server</title>
+        <style></style>
+        <script|module>
+
+import {TCP,dns} from "@sys"; 
+import * as env from "@env"; 
+
+const serverSocket = new TCP();
+
+serverSocket.bind({ip:"127.0.0.1",port:7000});
+serverSocket.listen();
+
+async function hostAddresses() {
+  const options = { family: 2 };
+  const list = await dns.getaddrinfo(env.machineName(),options);
+  return list.map( item => item.addr.ip );
+}
+
+async function start() {
+
+  const addr = await hostAddresses();
+
+  document.body.append(<text>Listening at { env.machineName() } ({ addr.join(",") })</text>);
+
+  // connection socket
+  const socket = await serverSocket.accept();
+
+  if (!socket)
+      return;
+
+  async function stop() {
+    document.body.append(<text>Stopping</text>);
+    await socket.close();
+    await serverSocket.close();
+  }
+
+  document.on("click","button#stop", stop);
+  document.on("document-before-unload", stop);
+
+  document.body.append(<text>Accepted connection</text>);
+
+  while (true) {
+     const read = await socket.read();
+     if (read === undefined)
+       break;
+     document.body.append(<text>Read and send {read.byteLength} bytes</text>);
+     socket.write(read);
+  }
+
+  await stop();
+  document.body.append(<text>Stopped</text>);
+
+}
+
+start();
+
+//new Window({url: __DIR__ + "client.htm"});
+
+        </script>
+    </head>
+    <body>
+
+<button#stop>Stop</button>
+
+    </body>
+</html>

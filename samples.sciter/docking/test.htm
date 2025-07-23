@@ -1,0 +1,36 @@
+<html theme="dark">
+    <head>
+        <title>Test</title>
+        <style>
+@import url(docks.css);
+body {margin:0;}
+section.content { size:*; }
+        </style>
+        <script|module>
+
+import {Dock,DockGroup,DockPanel} from "./docks.js";
+import {WebView} from "../../webview/demo/webview.js";
+
+document.body.patch(<Dock>
+
+  <DockGroup|cols> 
+    <DockGroup|rows> 
+      <DockPanel caption="A" style="background:red">A</DockPanel>
+      <DockPanel caption="B" style="background:green">B</DockPanel>
+    </DockGroup>
+    <section.content>Content area</section>
+    <DockGroup|rows> 
+      <DockPanel caption="C" style="background:blue">C</DockPanel>
+      <DockPanel caption="D" style="background:magenta">D</DockPanel>
+      <DockPanel caption="webview" style="background:gold">
+        <WebView src="https://www.sciter.com"/>
+      </DockPanel>
+    </DockGroup>
+  </DockGroup> 
+</Dock>);
+
+        </script>
+    </head>
+
+    <body></body>
+</html>

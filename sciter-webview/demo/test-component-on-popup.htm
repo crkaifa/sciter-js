@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <title></title>
+    <style>
+
+popup {
+    background:#fff;
+    width:800px;
+    height:600px;
+}
+
+    </style>
+    <script type="module">
+        import {WebView} from "./webview.js";
+                 
+        document.on("click", "#show", function(e,button) {
+           button.popup(<popup><WebView src="https://www.sciter.com"/></popup>);
+        });
+
+    </script>
+</head>
+
+<body>
+
+  <button #show>Show webview on popup</button>
+
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+
+body {
+  flow:waterfall;
+  border-spacing:10px;
+  overflow:scroll-indicator;
+}
+
+body > div {
+  background:gold;
+  font-size:16pt;
+  min-width:100px;
+  width:*;
+  content-vertical-align:middle;
+  text-align:center;
+}
+
+        </style>
+        <script|module>
+
+function initElements(max) {
+
+  const out = [];
+ 
+  for(let n = 0; n < max; ++n) {
+    const style = `height:width(${(1.5 - Math.random()) * 100 }%)`;
+    out.push(<div style={style}>{n}</div>);
+  }
+  return out;
+}
+
+const elements = initElements(32);
+document.body.append(elements);
+
+
+        </script>
+    </head>
+    <body>
+
+<h2>flow: waterfall</h2>
+
+    </body>
+</html>

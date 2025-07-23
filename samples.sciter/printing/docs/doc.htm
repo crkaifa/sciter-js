@@ -1,0 +1,131 @@
+﻿<body> <h1>behavior: pager
+</h1>
+<p>This behavior provides print preview and PDF generation functionality.</p>
+<p>The behavior can be applied to any block element, <code>&lt;div&gt;</code> or <code>&lt;section&gt;</code> for example.</p>
+<h2>Elements
+</h2>
+<p><code>&lt;frame type=&quot;pager&quot;&gt;</code> has <em>behavior:pager</em> applied by default.</p>
+<p>In Sciter, <code>&lt;frame type=pager&gt;</code> is an ordinary DOM element that can appear in any context where other block elements can appear.</p>
+<h2 id="test">Model
+</h2>
+<p><code>&lt;frame type=pager&gt;</code> element maintains references of two documents: page template document and the document being paginated.</p>
+<p>To access loaded document from script use <code>el.pager.document</code> property that will return child document element:</p>
+<pre>let frm = document.$(&quot;frame#main&quot;);
+let pagingDoc = frm.pager.document;
+let h1header = pagingDoc.$(&quot;h1&quot;);
+...</pre><h2>Attributes
+</h2>
+<ul><li><code>src=&quot;url&quot;</code> - optional, URL of document to paginate;</li>
+
+<li><code>content-style=&quot;url&quot;</code> - optional, URL of .css file to be applied to the content. Useful when host document needs to apply some specific styles on top of styles defined in document itself.
+</li>
+</ul>
+<h2>Events
+</h2>
+<ul><li><code>&quot;pagination-start&quot;</code> / <code>PAGINATION_STARTS</code> event - generated as a first step of document pagination. At this moment document can be updated using DOM API;</li>
+
+<li><code>&quot;pagination-end&quot;</code> / <code>PAGINATION_ENDSS</code> event - document has finished pagination - <code>pager.pages</code> contains valid number of pages.
+</li>
+</ul>
+<h2>Properties
+</h2>
+<h3>pager.document
+</h3>
+<p>Document, read-only, document object being paginated.</p>
+<h3>pager.templateDocument
+</h3>
+<p>Document, read-only, page template document object being paginated.</p>
+<h3>pager.pageWidth
+</h3>
+<p>Length, read-only, &quot;paper&quot; width, e.g. <code>8.5in</code></p>
+<h3>pager.pageHeight
+</h3>
+<p>Length, read-only, &quot;paper&quot; height, e.g. <code>11in</code></p>
+<h3>pager.rows
+</h3>
+<h3>pager.columns
+</h3>
+<p>integer, read/write, defines grid of pages seen in preview at the same time.</p>
+<h3>pager.pages
+</h3>
+<p>integer, read-only, number of pages after pagination.</p>
+<h3>pager.page
+</h3>
+<p>integer, read-only, page number of the first page in preview.</p>
+<h2>Methods
+</h2>
+<h3>pager.loadFile()
+</h3>
+<pre>el.pager.loadFile(documentUrl:string[, templateDocumentUrl:string]) : bool</pre><h3>frame.loadHtml()
+</h3>
+<pre>el.frame.loadHtml(html:string  ArrayBuffer, baseUrl: string [, templateDocumentUrl:string] ) : bool</pre><h3>frame.savePDF()
+</h3>
+<pre>el.pager.savePDF(options:object) : bool  ArrayBuffer</pre><p><em>Options</em> object may contain information used as meta data of generated PDF document:</p>
+<ul><li><em>title</em> : string - title of the PDF document;</li>
+
+<li><em>creator</em> : string - creator of the PDF document;
+</li>
+</ul>
+<h2>Value
+</h2>
+<p>N/A</p>
+<h2>Page Templates
+</h2>
+<p><code>&lt;frame type=pager&gt;</code> uses separate document that defines printed page layout - header/footers, content area, page numbers, etc.</p>
+<p>Such a template shall have single <code>&lt;pageframe/&gt;</code> element that is a placeholder for the content of printed document.</p>
+<pre>&lt;html page-no=&quot;1&quot; page-parity=&quot;odd&quot;&gt;
+  &lt;head&gt;
+    &lt;style&gt;
+      body { flow: vertical; }
+      body &gt; pageframe  { size:*; margin:0.5in; /* to account dead zones on the page */ }
+    &lt;/style&gt;
+  &lt;/head&gt;
+&lt;body&gt;
+  &lt;pageframe /&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><p>The root <code>&lt;html&gt;</code> element will get two special attributes:</p>
+<ul><li><code>page-no=&quot;1..N&quot;</code> - will be set to current generting page number;
+</li>
+</ul>
+<ul><li><code>page-parity=&quot;odd&quot;</code> - will be set to &quot;odd&quot; or &quot;even&quot; so the template can be styled differently for odd and even pages.</li>
+</ul>
+<p>The template also may have additional elements with predefined identifiers:</p>
+<ul><li><code>id=&quot;page-no&quot;</code> - this element will get number of the page being generated;</li>
+
+<li><code>id=&quot;total-pages&quot;</code> - this element will get total number of pages;</li>
+
+<li><code>id=&quot;document-title&quot;</code> - title of the document;</li>
+
+<li><code>id=&quot;document-url&quot;</code> - URL of the document being paginated;
+</li>
+</ul>
+<p>Example of the template:</p>
+<pre>&lt;html page-no page-parity&gt;
+  &lt;head&gt;
+    &lt;style&gt;
+      body { padding:0.2in; /* to account dead zones on the page */ }
+      pageframe  { size:*; }
+      header { border-bottom: 1dip solid #000; }
+      footer { border-top: 1dip solid #000; }
+      
+      html[page-parity=odd] footer  { text-align:left; }
+      html[page-parity=even] footer { text-align:right; }
+      html[page-parity=odd] pageframe 
+      { 
+        margin-left:10pt;
+        margin-right:20pt;
+      }
+      html[page-parity=even] pageframe
+      {
+        margin-left:20pt;
+        margin-right:10pt;
+      }
+      /* html[page-no=1] footer  { text-align:center; } */
+    &lt;/style&gt;
+  &lt;/head&gt;
+&lt;body&gt;
+  &lt;header #document-url&gt;&lt;/header&gt;
+  &lt;pageframe /&gt;
+  &lt;footer&gt;Page &lt;span #page-no /&gt; of &lt;span #total-pages /&gt;&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></body>

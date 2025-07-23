@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script>
+
+document.$("input").on("^exec:edit:delete-word-prev", function() {
+  console.log("Suppressing Ctrl-Backspace action");
+  return true;
+});
+
+document.$("input").on("^keydown", function(evt) {
+  if(evt.code == "Backspace" && evt.ctrlKey)
+    return true;
+});
+
+
+        </script>
+    </head>
+    <body>
+
+<p>Disabling CTRL+BACKSPACE</p>
+
+<input|text value="dum spiro spero" />
+
+    </body>
+</html>

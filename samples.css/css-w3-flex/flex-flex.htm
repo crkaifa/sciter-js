@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>flex / exlicit direction</title>
+        <style>
+
+section {
+  display:flex;
+  border:1px solid;
+  border-radius: 6px;
+  padding: 3px;
+  gap: 3px;
+}
+
+section > div {
+  border:1px solid;
+  border-radius: 3px;
+  background: gold;
+  padding: 3px;
+}
+
+section > div:nth-child(2) {
+  flex:1;
+}
+
+        </style>
+    </head>
+    <body>
+<h2>Just display:flex (implicit flex-direction:row) </h2>
+<section>
+  <div>Item 1</div>
+  <div>Item 2, flex:1</div>
+  <div>Item 3</div>
+</section>
+
+<h2>display:flex; flex-direction:row</h2>
+<section>
+  <div>Item 1</div>
+  <div>Item 2, flex:1</div>
+  <div>Item 3</div>
+</section>
+
+<h2>display:flex; flex-direction:column</h2>
+<section style="flex-direction:column;height:120px;width:max-content;">
+  <div>Item 1</div>
+  <div>Item 2, flex:1</div>
+  <div>Item 3</div>
+</section>
+
+
+    </body>
+</html>

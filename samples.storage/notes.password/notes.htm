@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+html { 
+  background:color(panel); 
+  color: color(widget-text);
+}
+
+main {
+  size:*;
+}
+
+#list {
+  size:*;
+  overflow-y:auto;
+  border-spacing:1em;
+}
+
+#new {
+  flow:horizontal;
+  height:3.6em;
+}
+
+#new > plaintext {
+  size:*;
+}
+
+#new > plaintext:empty::marker {
+  content:attr(novalue);
+  size:*;
+  color:#888;
+  z-index:-1;
+  text-align:center;
+  vertical-align:middle;
+}
+
+#new > button {
+  display:block;
+  padding:* 1em;
+}
+
+        </style>
+        <script type="module">
+
+import {App} from "./app.js";
+
+document.$("form").on("submit", function(e,form) {
+  document.body.content(<App password={form.value.password}/>);
+  return true;
+});
+
+        </script>
+    </head>
+    <body>
+      <form style="size:*">
+        <label>DB password: </label>
+        <input|text(password) value="test" />
+        <button|submit>LogIn</button>
+      </form>
+    </body>
+</html>

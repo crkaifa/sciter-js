@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>flex/default</title>
+        <style>
+
+section {
+  display:flex;
+  border:1px solid;
+  border-radius: 6px;
+  padding: 3px;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+section > div {
+  border:1px solid;
+  border-radius: 3px;
+  background: gold;
+  padding: 3px;
+  //width:200px;
+  height:64px;
+}
+
+        </style>
+    </head>
+    <body>
+<h2>display:flex / flex-direction:row, flex-wrap:wrap </h2>
+<section>
+  <div>Item 1 auto width, this one has quite long text inside</div>
+  <div>Item 2 auto width</div>
+  <div>Item 3 auto width</div>
+  <div>Item 4 auto width</div>
+  <div>Item 5 auto width</div>
+  <div>Item 6 auto width</div>
+</section>
+
+<h2>display:flex; flex-direction:column, flex-wrap:wrap</h2>
+<section style="flex-direction:column;height:40%">
+  <div>Item 1, this one has quite long text inside</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+  <div>Item 4</div>
+  <div>Item 5</div>
+  <div>Item 6</div>
+</section>
+
+    </body>
+</html>

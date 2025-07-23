@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>grid, auto-fill, vertical</title>
+        <style>
+
+section {
+    display:grid;
+    gap: 4px;
+    grid-template-rows: 30px repeat(auto-fill, minmax(100px, 1fr));
+    grid-auto-flow: column;
+    height:100%;
+}
+
+section > div {
+    background:gold;
+    padding:4px;
+}
+
+        </style>
+    </head>
+    <body>
+
+<section>
+   <div>1</div>
+   <div>2</div>
+   <div>3</div>
+   <div>4</div>
+   <div>5</div>
+   <div>6</div>
+   <div #test>7</div>
+   <div>8</div>
+   <div>9</div>
+</section>
+
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <style>
+
+body { overflow:visible; }
+
+section {
+    flow:horizontal-wrap;
+    //min-width:420px;
+    aspect: Honeycomb;
+    var(cell): 200px;
+    var(cell-spacing): 6px;
+    border-spacing: var(cell-spacing);
+    padding:var(cell-spacing);
+    //width: max-content;
+    border:1px solid;
+    content-horizontal-align:center;
+    padding-bottom: calc( var(cell) * 0.2885 + var(cell-spacing)); 
+}
+
+div {
+    width:var(cell);
+    height: calc( var(cell) * 1.1547) ; 
+    background-color:gold;
+    border-shape: path(M 0 25% L 0 75% L 50% 100% L 100% 75% L 100% 25% L 50% 0 Z);
+    text-align:center;
+    content-vertical-align:middle;
+    margin-bottom: calc( var(cell) * -0.2885); 
+}
+
+div.rowstart { 
+    clear:before;
+    background-color:green;
+}
+
+div.rowstart.even {
+    margin-left: calc((var(cell) + var(cell-spacing)) / 2);
+    background-color:blue;
+}
+
+div.rowstart:hover,
+div:hover {
+    background-color:red;
+}
+
+
+        </style>
+
+<script>
+
+  function Honeycomb() {
+    let rowSize = 0;
+
+    this.onsizechanging = (horizontal, w) => {
+       if(!horizontal) return;
+
+       const cellSize = this.style.variable("cell").valueOf(); 
+       const cellSpacing = this.style.variable("cell-spacing").valueOf();
+       const cellWidth = cellSize + cellSpacing; 
+       const cellWidthHalf = cellWidth / 2; 
+
+       const rs = Math.max(1, (w / cellWidthHalf )) ^ 0;
+       if(rowSize == rs) return;
+
+       rowSize = rs;
+       let row = 0, rowWidth = w;
+       for(let cell of this.children) {
+          let className = "";
+          if((rowWidth + cellWidth) > w ) {
+            className = "rowstart";
+            rowWidth = 0;
+            if((++row & 1) == 0) {
+              className += " even";
+              rowWidth += cellWidthHalf;
+            }
+          } 
+          rowWidth += cellWidth;
+          cell.className = className;
+       }
+    }
+
+  }
+
+
+</script>
+
+    </head>
+    <body>
+    <section>
+        <div>#0</div>
+        <div>#1</div>
+        <div>#2</div>
+        <div>#3</div>
+        <div>#4</div>
+        <div>#5</div>
+    </section>
+    </body>
+</html>

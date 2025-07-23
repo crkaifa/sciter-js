@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script>
+
+Window.this.on("activate", function(evt) {
+  if(evt.reason)
+    document.body.content(<p>ACTIVE</p>);
+  else 
+    document.body.content(<p>inactive</p>);
+});
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

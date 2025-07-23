@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+.container {
+  display: grid;
+  height:100%;
+  height:*;
+  grid-template-columns: 50px 1fr 10px 50px;
+  grid-template-rows: 1.8em 1fr 1.8em; 
+  grid-template-areas: 
+    "header header header header"
+    "navbar main   .      sidebar"
+    "footer footer footer footer";
+}
+
+.item-a { grid-area: header; }
+.item-b { grid-area: navbar; }
+.item-c { grid-area: sidebar; }
+.item-d { grid-area: footer; }
+.item-e { grid-area: main; }
+
+section > div:nth-child(1) { background:#EB9694; }
+section > div:nth-child(2) { background:#FAD0C3; }
+section > div:nth-child(3) { background:#FEF3BD; }
+section > div:nth-child(4) { background:#C1E1C5; }
+section > div:nth-child(5) { background:#BEDADC; }
+section > div:nth-child(6) { background:#C4DEF6; }
+section > div:nth-child(7) { background:#BED3F3; }
+section > div:nth-child(8) { background:#D4C4FB; }
+section > div:nth-child(9) { background:#F2F2F2; }
+
+        </style>
+    </head>
+    <body>
+
+<h2>grid-template-areas / grid-area</h2>
+
+<section class="container">
+  <div class="item-a">item-a</div>
+  <div class="item-b">item-b</div>
+  <div class="item-c">item-c</div>
+  <div class="item-d">item-d</div>
+  <div class="item-e">item-e</div>
+</section>
+
+    </body>
+</html>

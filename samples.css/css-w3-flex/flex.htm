@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>flex/default</title>
+        <style>
+
+section {
+  display:flex;
+  border:1px solid;
+  border-radius: 6px;
+  padding: 3px;
+  gap: 3px;
+}
+
+section > div {
+  border:1px solid;
+  border-radius: 3px;
+  background: gold;
+  padding: 3px;
+}
+
+        </style>
+    </head>
+    <body>
+<h2>Just display:flex (implicit flex-direction:row) </h2>
+<section>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</section>
+
+<h2>display:flex; flex-direction:row</h2>
+<section>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</section>
+
+<h2>display:flex; flex-direction:column</h2>
+<section style="flex-direction:column">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</section>
+
+
+    </body>
+</html>

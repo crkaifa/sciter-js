@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+.container {
+  display: grid;
+  grid-template-columns: 120px 60px 120px;
+  grid-template-rows: 30px 30px 30px;
+  grid-auto-flow: row;
+  gap: 3px;
+  border:1px solid;
+  padding:3px;
+  width:max-content;
+}
+
+.container.stretch { justify-items: stretch; }
+.container.start { justify-items: start; }
+.container.center { justify-items: center; }
+.container.end { justify-items: end; }
+
+section > div {
+    border:1px solid;
+    border-radius: 4px;
+    background:orange;
+    padding:2;
+}
+        </style>
+    </head>
+    <body>
+
+<h2>justify-items: stretch</h2>
+
+<section class="container stretch">
+  <div class="item-a">item a</div>
+  <div class="item-b">item b</div>
+  <div class="item-c">item c</div>
+  <div class="item-d">item d</div>
+  <div class="item-e">item e</div>
+  <div class="item-f">item f</div>
+  <div class="item-g">item g</div>
+  <div class="item-h">item h</div>
+  <div class="item-i">item i</div>
+</section>
+
+<h2>justify-items: start</h2>
+
+<section class="container start">
+  <div class="item-a">item a</div>
+  <div class="item-b">item b</div>
+  <div class="item-c">item c</div>
+  <div class="item-d">item d</div>
+  <div class="item-e">item e</div>
+  <div class="item-f">item f</div>
+  <div class="item-g">item g</div>
+  <div class="item-h">item h</div>
+  <div class="item-i">item i</div>
+</section>
+
+<h2>justify-items: center</h2>
+
+<section class="container center">
+  <div class="item-a">item a</div>
+  <div class="item-b">item b</div>
+  <div class="item-c">item c</div>
+  <div class="item-d">item d</div>
+  <div class="item-e">item e</div>
+  <div class="item-f">item f</div>
+  <div class="item-g">item g</div>
+  <div class="item-h">item h</div>
+  <div class="item-i">item i</div>
+</section>
+
+<h2>justify-items: end</h2>
+
+<section class="container end">
+  <div class="item-a">item a</div>
+  <div class="item-b">item b</div>
+  <div class="item-c">item c</div>
+  <div class="item-d">item d</div>
+  <div class="item-e">item e</div>
+  <div class="item-f">item f</div>
+  <div class="item-g">item g</div>
+  <div class="item-h">item h</div>
+  <div class="item-i">item i</div>
+</section>
+
+    </body>
+</html>
